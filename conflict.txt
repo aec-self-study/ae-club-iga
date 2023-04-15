@@ -1,6 +1,6 @@
 i'm creating a conflict 
 to practice
 my git skills
-conflict
+flictcon
 this will
 be
