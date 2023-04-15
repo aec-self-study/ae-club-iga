@@ -1,35 +1,33 @@
-WITH
-  customers AS (
-  SELECT
+with customers as (
+
+  select
     id,
     name,
     email
-  FROM
-    `analytics-engineers-club.coffee_shop.customers` ),
-  orders AS (
-  SELECT
-    DISTINCT customer_id,
-    MIN(created_at) AS first_order,
-    COUNT(total) AS number_of_orders,
-  FROM
-    `analytics-engineers-club.coffee_shop.orders`
-  GROUP BY
-    customer_id )
-SELECT
+  from `analytics-engineers-club.coffee_shop.customers` 
+
+),
+  
+orders as (
+  
+  select
+    distinct customer_id,
+    min(created_at) as first_order_at,
+    count(total) as number_of_orders,
+  from `analytics-engineers-club.coffee_shop.orders`
+  group by customer_id 
+
+)
+
+select
   customers.id,
   customers.name,
   customers.email,
-  orders.first_order,
+  orders.first_order_at,
   orders.number_of_orders
-FROM
-  customers
-LEFT OUTER JOIN
-  orders
-ON
-  customers.id = orders.customer_id
-WHERE
-  orders.number_of_orders IS NOT NULL
-ORDER BY
-  orders.first_order
-LIMIT
-  5;
+from customers
+left outer join orders on customers.id = orders.customer_id
+where 
+  orders.number_of_orders is not null
+order by orders.first_order_at
+limit 5;
