@@ -30,4 +30,4 @@ left outer join orders on customers.id = orders.customer_id
 where 
   orders.number_of_orders is not null
 order by orders.first_order_at
-;
+
