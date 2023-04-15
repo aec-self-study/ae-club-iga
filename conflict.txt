@@ -1,3 +1,6 @@
 i'm creating a conflict 
 to practice
 my git skills
+conflict
+this will
+be
