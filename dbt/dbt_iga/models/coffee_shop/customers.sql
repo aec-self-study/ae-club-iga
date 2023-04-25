@@ -10,7 +10,7 @@ with customers as (
         id,
         name,
         email
-    from `analytics-engineers-club.coffee_shop.customers` 
+    from {{ source('coffee_shop', 'customers') }}
 
 ),
   
@@ -20,7 +20,7 @@ orders as (
         distinct customer_id,
         min(created_at) as first_order_at,
         count(total) as number_of_orders,
-    from `analytics-engineers-club.coffee_shop.orders`
+    from {{ source('coffee_shop', 'orders') }}
     group by customer_id 
 
 )
