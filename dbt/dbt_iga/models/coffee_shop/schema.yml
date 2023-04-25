@@ -1,21 +1,44 @@
 
 version: 2
 
+sources:
+  - name: coffee_shop
+    project: analytics-engineers-club 
+    tables: 
+      - name: customers
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+      - name: orders
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null 
+        freshness:
+          warn_after:
+            count: 12
+            period: hour
+        loaded_at_field: created_at
 models:
-  - name: my_first_dbt_model
-    description: "A starter dbt model"
+  - name: customers
+    description: Cleaned up data about our customers.
     columns:
       - name: id
-        description: "The primary key for this table"
+        description: Primary key of the model
         tests:
           - unique
-          - not_null
-
-  - name: my_second_dbt_model
-    description: "A starter dbt model"
+          - not_null       
+  - name: monthly_customers
+    description: Number of new customers by month.
     columns:
-      - name: id
-        description: "The primary key for this table"
-        tests:
+      - name: signup_month
+        description: Month of the year.
+        tests: 
           - unique
           - not_null
+      - name: new_customers
+        description: Number of new cutomers per month.
+          
