@@ -22,6 +22,25 @@ sources:
             count: 12
             period: hour
         loaded_at_field: created_at
+      - name: order_items
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+      - name: products
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+      - name: product_prices
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null 
+
   - name: web_tracking
     project: analytics-engineers-club 
     tables: 
@@ -31,7 +50,9 @@ sources:
             tests:
               - unique
               - not_null
+
 models:
+
   - name: customers
     description: Cleaned up data about our customers.
     columns:
@@ -39,7 +60,8 @@ models:
         description: Primary key of the model
         tests:
           - unique
-          - not_null       
+          - not_null
+
   - name: monthly_customers
     description: Number of new customers by month.
     columns:
@@ -50,6 +72,7 @@ models:
           - not_null
       - name: new_customers
         description: Number of new cutomers per month.
+
   - name: pageviews_user_stiching
     description: Table containing pageview data where all of the visitors with known customer_id are assigned the same visitor_id.  Users' browsing sessions are linked together when there is evidence they are in fact the same user.
     columns: 
@@ -71,3 +94,4 @@ models:
         description: Page visited on our website.
       - name: customer_id
         description: The unique id of a customer (null if not a customer).    
+      
