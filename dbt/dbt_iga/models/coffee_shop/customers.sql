@@ -30,7 +30,11 @@ select
     customers.name,
     customers.email,
     orders.first_order_at,
-    orders.number_of_orders
+    orders.number_of_orders,
+    case 
+        when number_of_orders > 1 then "returning"
+        else "new" 
+    end as customer_type
 from customers
 left outer join orders on customers.id = orders.customer_id
 where 
