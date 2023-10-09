@@ -62,6 +62,10 @@ select
     timestamp,
     page,
     customer_id,
-    time_lag as session_time_lag    
+    time_lag as session_time_lag,
+    case 
+        when page = 'order-confirmation' then 1
+        else 0
+        end as is_checkout
 from add_session_id
 order by stiched_visitor_id, timestamp asc
