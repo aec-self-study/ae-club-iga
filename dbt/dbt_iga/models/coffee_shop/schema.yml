@@ -35,11 +35,18 @@ sources:
               - unique
               - not_null
       - name: product_prices
+        tests:
+        - dbt_utils.mutually_exclusive_ranges:
+            lower_bound_column: created_at
+            upper_bound_column: ended_at
+            partition_by: product_id
+            gaps: not_allowed
+            zero_length_range_allowed: true
         columns:
           - name: id
             tests:
               - unique
-              - not_null 
+              - not_null
 
   - name: web_tracking
     project: analytics-engineers-club 
@@ -84,7 +91,8 @@ models:
       - name: stiched_visitor_id
         description: The unique id of a visitor.
         tests:
-          - bespoke_pageviews_user_stiching
+          - unique_per_key:
+              key_column_name: customer_id
           - not_null
       - name: device_type
         description: Type of a device used during a visit.
@@ -94,4 +102,9 @@ models:
         description: Page visited on our website.
       - name: customer_id
         description: The unique id of a customer (null if not a customer).    
-      
+
+  - name: revenue
+    columns: 
+      - name: product_price
+        tests:
+          - greater_than_zero
