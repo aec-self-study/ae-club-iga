@@ -36,4 +36,12 @@ models:
     # Config indicated by + and applies to all files under models/example/
     coffee_shop:
       +materialized: view
-      
+    github:
+      +materialized: view
+
+vars:
+  github__using_repo_team: false
+  github_source:
+    github_database: analytics-engineers-club 
+    github_schema: github
+    
